@@ -13,30 +13,32 @@ An end-to-end environmental intelligence microservice and reactive decision-supp
 
 ## Platform Interface & Live REST API
 
-| Reactive Streamlit Dashboard (`:8501`) | Interactive Swagger Documentation (`/docs`) |
-| :---: | :---: |
-| ![Streamlit UI](dashboard_preview.png) | ![Swagger Docs](swagger_docs_preview.png) |
+### Reactive Streamlit Dashboard (`:8501`)
+![Streamlit Dashboard](dashboard_preview.png)
+
+### Interactive Swagger API Documentation (`:8000/docs`)
+![FastAPI Swagger Docs](swagger_docs_preview.png)
 
 ---
 
 ## Architecture Overview
 
 ```text
-┌────────────────────────────────────────────────────────┐
-│              Streamlit Reactive Dashboard              │
-│  - Radial Severity Gauge (Dynamic Hex Theming)         │
-│  - Telemetry Sliders & What-If Environmental Simulator │
-│  - Sub-Index Comparative Threshold Visualizer          │
-└───────────────────────────┬────────────────────────────┘
-                            │ HTTP POST (Pydantic Validated JSON)
-                            ▼
-┌────────────────────────────────────────────────────────┐
-│            FastAPI Microservice Engine                 │
-│  - Pydantic v2 Schema Validation & Bounds Enforcement  │
-│  - CPCB / NAAQS Piecewise Linear Sub-Index Calculator  │
-│  - Dominant Pollutant Attribution Logic                │
-│  - Automated OpenAPI / Swagger Documentation (/docs)   │
-└────────────────────────────────────────────────────────┘
++-------------------------------------------------------------+
+|                Streamlit Reactive Dashboard                 |
+|  - Radial Severity Gauge (Dynamic Hex Theming)              |
+|  - Telemetry Sliders & What-If Environmental Simulator      |
+|  - Sub-Index Comparative Threshold Visualizer               |
++------------------------------+------------------------------+
+                               | HTTP POST (Validated JSON)
+                               v
++-------------------------------------------------------------+
+|                 FastAPI Microservice Engine                 |
+|  - Pydantic v2 Schema Validation & Bounds Enforcement       |
+|  - CPCB / NAAQS Piecewise Linear Sub-Index Calculator       |
+|  - Dominant Pollutant Attribution Logic                     |
+|  - Automated OpenAPI / Swagger Documentation (/docs)        |
++-------------------------------------------------------------+
 ```
 
 ---
@@ -118,14 +120,15 @@ $$\text{Dominant Pollutant} = \arg\max_{p} \{ I_p \}$$
 ## Repository Structure
 
 ```text
-.
-├── air_quality_dataset.csv          # Multi-pollutant sensor telemetry catalog
-├── api.py                           # FastAPI REST microservice & Pydantic validation schemas
-├── app.py                           # Streamlit reactive UI with Plotly visual components
-├── dashboard_preview.png            # UI screenshot: Real-time gauge & sub-index breakdown
-├── swagger_docs_preview.png         # API screenshot: OpenAPI /docs test harness
-├── requirements.txt                 # Pinned project dependencies
-└── README.md                        # Architecture & algorithmic documentation
+air-quality-intelligence-engine/
+│
+├── air_quality_dataset.csv     # Multi-pollutant sensor telemetry catalog
+├── api.py                      # FastAPI REST microservice & Pydantic validation schemas
+├── app.py                      # Streamlit reactive UI with Plotly visual components
+├── dashboard_preview.png       # UI screenshot: Real-time gauge & sub-index breakdown
+├── swagger_docs_preview.png    # API screenshot: OpenAPI /docs test harness
+├── requirements.txt            # Pinned project dependencies
+└── README.md                   # Architecture & algorithmic documentation
 ```
 
 ---
