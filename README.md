@@ -23,22 +23,23 @@ An end-to-end environmental intelligence microservice and reactive decision-supp
 
 ## Architecture Overview
 
-```text
-+-------------------------------------------------------------+
-|                Streamlit Reactive Dashboard                 |
-|  - Radial Severity Gauge (Dynamic Hex Theming)              |
-|  - Telemetry Sliders & What-If Environmental Simulator      |
-|  - Sub-Index Comparative Threshold Visualizer               |
-+------------------------------+------------------------------+
-                               | HTTP POST (Validated JSON)
-                               v
-+-------------------------------------------------------------+
-|                 FastAPI Microservice Engine                 |
-|  - Pydantic v2 Schema Validation & Bounds Enforcement       |
-|  - CPCB / NAAQS Piecewise Linear Sub-Index Calculator       |
-|  - Dominant Pollutant Attribution Logic                     |
-|  - Automated OpenAPI / Swagger Documentation (/docs)        |
-+-------------------------------------------------------------+
+```mermaid
+flowchart TD
+    subgraph UI ["Frontend: Streamlit Reactive Dashboard (:8501)"]
+        A1[Radial Severity Gauge & Dynamic Theming]
+        A2[Telemetry Sliders & What-If Simulator]
+        A3[Sub-Index Comparative Visualizer]
+    end
+
+    subgraph API ["Backend: FastAPI Microservice (:8000)"]
+        B1[Pydantic v2 Schema Validation]
+        B2[CPCB / NAAQS Piecewise Linear Engine]
+        B3[Dominant Toxic Driver Attribution]
+        B4[OpenAPI / Swagger Documentation]
+    end
+
+    UI -->|HTTP POST JSON Payload| API
+    API -->|Validated AQI & Health Advisory| UI
 ```
 
 ---
@@ -119,17 +120,15 @@ $$\text{Dominant Pollutant} = \arg\max_{p} \{ I_p \}$$
 
 ## Repository Structure
 
-```text
-air-quality-intelligence-engine/
-│
-├── air_quality_dataset.csv     # Multi-pollutant sensor telemetry catalog
-├── api.py                      # FastAPI REST microservice & Pydantic validation schemas
-├── app.py                      # Streamlit reactive UI with Plotly visual components
-├── dashboard_preview.png       # UI screenshot: Real-time gauge & sub-index breakdown
-├── swagger_docs_preview.png    # API screenshot: OpenAPI /docs test harness
-├── requirements.txt            # Pinned project dependencies
-└── README.md                   # Architecture & algorithmic documentation
-```
+| File / Directory | Purpose |
+| :--- | :--- |
+| `air_quality_dataset.csv` | Multi-pollutant sensor telemetry dataset |
+| `api.py` | FastAPI REST microservice & Pydantic validation schemas |
+| `app.py` | Streamlit reactive UI with Plotly visual components |
+| `dashboard_preview.png` | UI screenshot: Real-time gauge & sub-index breakdown |
+| `swagger_docs_preview.png` | API screenshot: OpenAPI `/docs` test harness |
+| `requirements.txt` | Project dependencies |
+| `README.md` | Architecture, mathematical formulations & documentation |
 
 ---
 
@@ -159,7 +158,6 @@ In a separate terminal instance:
 py -3.12 -m streamlit run app.py
 ```
 * Access the interactive dashboard: `http://localhost:8501`
-
 ---
 
 ## Author
